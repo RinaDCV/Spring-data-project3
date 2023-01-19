@@ -9,5 +9,6 @@ public interface AircraftService {
 	Aircraft save(Aircraft aircraft);
 	Aircraft update(Aircraft aircraft);
 	void delete(Aircraft aircraft);
+	void deleteById(int id);
 
 }

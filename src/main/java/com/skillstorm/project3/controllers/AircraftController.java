@@ -36,42 +36,6 @@ public class AircraftController {
 	@Autowired
 	private AircraftService service;
 	
-//	@GetMapping
-////	@RequestMapping(value="/aircraft", method = RequestMethod.GET)
-//	public @ResponseBody Iterable<Aircraft> findAll() {
-//		System.out.println("inside findall");
-//		
-//		return service.findAll();
-//	}
-//	@PutMapping
-////	@RequestMapping(value="/aircraft", method = RequestMethod.PUT)
-//	public @ResponseBody Aircraft update(Aircraft aircraft) {
-//	System.out.println("inside update");
-//	return service.update(aircraft);
-//	}
-//	@PostMapping
-////	@RequestMapping(value="/aircraft", method = RequestMethod.POST)
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public @ResponseBody Aircraft save(Aircraft aircraft) {
-//	System.out.println("inside save");
-//	return service.save(aircraft);
-//	}
-//	@DeleteMapping
-////	@RequestMapping(value="/aircraft", method = RequestMethod.DELETE)
-//	@ResponseStatus(HttpStatus.NO_CONTENT)
-//	public @ResponseBody void delete(Aircraft aircraft) {
-//	System.out.println("inside deleteById");
-//	service.delete(aircraft);
-//	}
-//	@GetMapping("/{id}")
-//	public @ResponseBody Aircraft findById(@PathVariable int id) {
-//		System.out.println("inside findById");
-//		return null;
-//	}
-//}
-
-	
-
 
 	@GetMapping // convenience annotation that lets us avoid passing a bunch of parameters
 	public @ResponseBody Iterable<Aircraft> findAll() {
