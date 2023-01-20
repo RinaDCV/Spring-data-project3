@@ -1,13 +1,12 @@
 package com.skillstorm.project3.controllers;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -44,14 +44,14 @@ public class AircraftController {
 		return service.findAll();
 	} 
 	
-	// I will define a more specific path for this GET
-	@GetMapping("/{id}") // { } tells Spring Boot this endpoint has a path parameter we want to parse
-	public @ResponseBody Aircraft findById(@PathVariable int id) { // if variable name does not match, specify it @PathVariable(name = "id")	
+
+	@GetMapping("/{id}") 
+	public @ResponseBody Aircraft findById(@PathVariable int id) {
 		System.out.println("Inside findById");
 		return service.findById(id);
 	}
 	
-//	@RequestMapping(value = "/shop", method = RequestMethod.POST)
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Aircraft save(@RequestBody Aircraft aircraft) {
@@ -61,15 +61,14 @@ public class AircraftController {
 		return aircraftCreated;
 	}
 	
-//	@RequestMapping(value = "/shop", method = RequestMethod.PUT)
 	@PutMapping("/{id}")
 	public @ResponseBody Aircraft update(@RequestBody Aircraft aircraft, @PathVariable int id) {
 		System.out.println("Inside update");
 //		shop.setId(id); // probably better to do this in the Service layer, controller should just forward everything to the service
-		return service.update(aircraft); // TODO if returns null update the status code to not 200 OK
+		return service.update(aircraft); 
 	}
 	
-//	@RequestMapping(value = "/shop", method = RequestMethod.DELETE)
+
 	@DeleteMapping("/{id}") 
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public @ResponseBody void deleteById(@PathVariable("id") int id) {
@@ -78,7 +77,7 @@ public class AircraftController {
 		service.deleteById(id);
 	}
 	
-//	@RequestMapping(value = "/shop", method = RequestMethod.DELETE)
+
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public @ResponseBody void delete(@RequestBody Aircraft aircraft) {
