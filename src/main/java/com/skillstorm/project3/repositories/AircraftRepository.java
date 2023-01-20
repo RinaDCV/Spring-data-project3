@@ -8,6 +8,5 @@ import com.skillstorm.project3.models.Aircraft;
 @Repository
 public interface AircraftRepository extends CrudRepository <Aircraft, Integer>{
 
-	
 
 }

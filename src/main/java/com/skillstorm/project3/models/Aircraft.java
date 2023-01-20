@@ -6,30 +6,29 @@ import javax.persistence.*;
 @Entity
 @Table(name = "aircraft")
 
-
 public class Aircraft {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	@Column(name = "Aircraft_Manufacturer")
 	private String aircraft_manufacturer;
-	
-	@Column(name = "Part_id")
-	private String part_id;
-	
+
+	@Column(name = "id")
+	private int id;
+
 	@Column(name = "Nomenclature")
 	private String nomenclature;
-	
+
 	@Column(name = "Qty")
 	private int Qty;
-	
+
 	@Column(name = "Price")
 	private String price;
-	
+
 	@Column(name = "Maint_Hours")
 	private Integer maint_hours;
-	
+
 	@Column(name = "Warehouse_id")
 	private String warehouse_id;
 
@@ -41,12 +40,12 @@ public class Aircraft {
 		this.aircraft_manufacturer = aircraft_id;
 	}
 
-	public String getPart_id() {
-		return part_id;
+	public int getId() {
+		return id;
 	}
 
-	public void setPart_id(String part_id) {
-		this.part_id = part_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String Nomenclature() {
@@ -91,11 +90,11 @@ public class Aircraft {
 
 	@Override
 	public String toString() {
-		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", part_id=" + part_id + ", nomenclature=" + nomenclature
+		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", id=" + id + ", nomenclature=" + nomenclature
 				+ ", Qty=" + Qty + ", price=" + price + ", maint_hours=" + maint_hours + ", warehouse_id="
 				+ warehouse_id + "]";
 	}
 
 
-	
+
 }

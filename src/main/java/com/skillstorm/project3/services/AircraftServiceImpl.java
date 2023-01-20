@@ -34,11 +34,11 @@ public class AircraftServiceImpl implements AircraftService{
 		@Override
 		public Aircraft save(Aircraft aircraft) { // The save implementation 
 			// Method 1:
-			if (!repository.existsById(aircraft.getQty())) {
+			if (!repository.existsById(aircraft.getId())) {
 				System.out.println("Inside service save " + aircraft);
-				Aircraft createdShop =  repository.save(aircraft);
-				System.out.println("Created shop " + createdShop);
-				return createdShop;
+				Aircraft createdAircraft =  repository.save(aircraft);
+				System.out.println("Created aircraft " + createdAircraft);
+				return createdAircraft;
 			}
 			return aircraft;
 		}
@@ -47,7 +47,7 @@ public class AircraftServiceImpl implements AircraftService{
 		// If the given id doesn't exist, don't do anything
 		@Override
 		public Aircraft update(Aircraft aircraft) {
-			if (repository.existsById(aircraft.getQty())) {
+			if (repository.existsById(aircraft.getId())) {
 				return repository.save(aircraft); // I cannot change the id because I can't search by one Id and set with another id
 			}                                 // Idea to implement this: delete the entry of the old idea using deleteById() and save(shop) with new id
 			return null; 
