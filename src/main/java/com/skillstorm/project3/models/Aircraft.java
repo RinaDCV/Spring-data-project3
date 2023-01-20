@@ -1,8 +1,22 @@
 package com.skillstorm.project3.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -34,26 +48,44 @@ public class Aircraft {
 	@Column(name = "Warehouse_id")
 	private String warehouse_id;
 	
-	@ManyToOne
-	@JoinColumn(name = "id")
-	@JsonIdentityReference(alwaysAsId = true)
-	private Inventory inventory;
+	@ManyToMany(fetch = FetchType.LAZY, // don't be lazy and use .EAGER
+			mappedBy = "aircraft") // name of PROPERTY in the OWNER class
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+	@JsonIgnore
+	private Set<Inventory> inventory;
 
-	public Inventory getInventory() {
+	public Aircraft() { }
+
+	public Aircraft(String aircraft_manufacturer, int Qty, String price, Integer maint_hours, String warehouse_id) {
+		this.aircraft_manufacturer = aircraft_manufacturer;
+		this.Qty = Qty;
+		this.price = price;
+		this.maint_hours = maint_hours;
+		this.warehouse_id = warehouse_id;
+
+		this.inventory = new HashSet<>();
+	}
+	public Set<Inventory> getinventory() {
 		return inventory;
 	}
 
-	public void setInventory(Inventory inventory) {
+	public void setInventory(Set<Inventory> inventory) {
 		this.inventory = inventory;
 	}
-
-
-	public String getAircraft_id() {
+	
+	public void addInventory(Inventory inventory) {
+		this.inventory.add(inventory);
+	}
+	
+	public void removeInventory (Inventory inventory) {
+		this.inventory.remove(inventory);
+	}
+	public String getAircraft_manufacturer() {
 		return aircraft_manufacturer;
 	}
 
-	public void setAircraft_id(String aircraft_id) {
-		this.aircraft_manufacturer = aircraft_id;
+	public void setAircraft_manufacturer(String aircraft_manufacturer) {
+		this.aircraft_manufacturer = aircraft_manufacturer;
 	}
 
 	public int getId() {
@@ -64,7 +96,7 @@ public class Aircraft {
 		this.id = id;
 	}
 
-	public String Nomenclature() {
+	public String getNomenclature() {
 		return nomenclature;
 	}
 
@@ -96,21 +128,13 @@ public class Aircraft {
 		this.maint_hours = maint_hours;
 	}
 
-	public String Warehouse_id() {
+	public String getWarehouse_id() {
 		return warehouse_id;
 	}
 
 	public void setWarehouse_id(String warehouse_id) {
 		this.warehouse_id = warehouse_id;
 	}
-
-	@Override
-	public String toString() {
-		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", id=" + id + ", nomenclature=" + nomenclature
-				+ ", Qty=" + Qty + ", price=" + price + ", maint_hours=" + maint_hours + ", warehouse_id="
-				+ warehouse_id + "]";
-	}
-
-
-
+	
+	
 }
