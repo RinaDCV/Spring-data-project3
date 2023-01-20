@@ -32,8 +32,8 @@ public class AircraftServiceImpl implements AircraftService{
 		// 1. check if it exists already, if so don't overwrite it
 		// 2. go ahead and save it, if it already exists it will be overwritten
 		@Override
-		public Aircraft save(Aircraft aircraft) { // The save implementation 
-			// Method 1:
+		public Aircraft save(Aircraft aircraft) { 
+		
 			if (!repository.existsById(aircraft.getId())) {
 				System.out.println("Inside service save " + aircraft);
 				Aircraft createdAircraft =  repository.save(aircraft);
@@ -48,15 +48,15 @@ public class AircraftServiceImpl implements AircraftService{
 		@Override
 		public Aircraft update(Aircraft aircraft) {
 			if (repository.existsById(aircraft.getId())) {
-				return repository.save(aircraft); // I cannot change the id because I can't search by one Id and set with another id
-			}                                 // Idea to implement this: delete the entry of the old idea using deleteById() and save(shop) with new id
+				return repository.save(aircraft); 
+			}                                 
 			return null; 
 		}
 		
 		@Override
 		public void deleteById(int id) {
 			if (repository.existsById(id))
-				repository.deleteById(id); // org.springframework.dao.EmptyResultDataAccessException: No class com.skillstorm.practice.models.Shop entity with id 3 exists!
+				repository.deleteById(id); 
 		}
 
 		@Override

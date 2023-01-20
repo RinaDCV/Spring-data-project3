@@ -2,6 +2,8 @@ package com.skillstorm.project3.models;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 
 @Entity
 @Table(name = "aircraft")
@@ -31,6 +33,20 @@ public class Aircraft {
 
 	@Column(name = "Warehouse_id")
 	private String warehouse_id;
+	
+	@ManyToOne
+	@JoinColumn(name = "id")
+	@JsonIdentityReference(alwaysAsId = true)
+	private Inventory inventory;
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+
 
 	public String getAircraft_id() {
 		return aircraft_manufacturer;

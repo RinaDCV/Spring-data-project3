@@ -64,7 +64,7 @@ public class AircraftController {
 	@PutMapping("/{id}")
 	public @ResponseBody Aircraft update(@RequestBody Aircraft aircraft, @PathVariable int id) {
 		System.out.println("Inside update");
-//		shop.setId(id); // probably better to do this in the Service layer, controller should just forward everything to the service
+		aircraft.setId(id); // probably better to do this in the Service layer, controller should just forward everything to the service
 		return service.update(aircraft); 
 	}
 	
