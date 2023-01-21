@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,13 +65,13 @@ public class AircraftController {
 //	
 	
 	// 200 successful or 404 not found or 400 bad request if couldn't find it
-	@PutMapping("/{id}")
-	public ResponseEntity<Aircraft> update(@RequestBody Aircraft aircraft, @PathVariable int id) throws CustomException {
-		Aircraft result = service.update(aircraft, id);
-//		if (result == null)
-//			return ResponseEntity.notFound().build();
-		return ResponseEntity.ok(result);
-	}
+//	@PutMapping("/{id}")
+//	public ResponseEntity<Aircraft> update(@RequestBody Aircraft aircraft, @PathVariable int id) throws CustomException {
+//		Aircraft result = service.update(aircraft, id);
+////		if (result == null)
+////			return ResponseEntity.notFound().build();
+//		return ResponseEntity.ok(result);
+//	}
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)

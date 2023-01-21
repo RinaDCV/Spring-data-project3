@@ -47,40 +47,40 @@ public class Product {
 	@Column(name = "Warehouse_id")
 	private int Warehouse_id;
 	
-	@ManyToMany(fetch = FetchType.LAZY, // don't be lazy and use .EAGER
-			mappedBy = "aircraft") // name of PROPERTY in the OWNER class
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
-	@JsonIgnore
-	
-	private Set<Aircraft> aircraft;
-
-	public Product() { }
-
-	public Product(String nomenclature, String engine_manufacturer, int in_stock, int Qty, int price, int Warehouse_id ) {
-		this.nomenclature = nomenclature;
-		this.engine_manufacturer = engine_manufacturer;
-		this.in_stock = in_stock;
-		this.Qty = Qty;
-		this.price= price;
-		this.Warehouse_id= Warehouse_id;
-		this.aircraft = new HashSet<>();
-	}
-
-	public Set<Aircraft> getAircraft() {
-		return aircraft;
-	} 
-
-	public void setAircraft(Set<Aircraft> aircraft) {
-		this.aircraft = aircraft;
-	}
-
-	public void addProduct(Aircraft aircraft) {
-		this.aircraft.add(aircraft);
-	}
-
-	public void removeAircraft(Aircraft aircraft) {
-		this.aircraft.remove(aircraft);
-	}
+//	@ManyToMany(fetch = FetchType.LAZY, // don't be lazy and use .EAGER
+//			mappedBy = "aircraft") // name of PROPERTY in the OWNER class
+//	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+//	@JsonIgnore
+//	
+//	private Set<Aircraft> aircraft;
+//
+//	public Product() { }
+//
+//	public Product(String nomenclature, String engine_manufacturer, int in_stock, int Qty, int price, int Warehouse_id ) {
+//		this.nomenclature = nomenclature;
+//		this.engine_manufacturer = engine_manufacturer;
+//		this.in_stock = in_stock;
+//		this.Qty = Qty;
+//		this.price= price;
+//		this.Warehouse_id= Warehouse_id;
+//		this.aircraft = new HashSet<>();
+//	}
+//
+//	public Set<Aircraft> getAircraft() {
+//		return aircraft;
+//	} 
+//
+//	public void setAircraft(Set<Aircraft> aircraft) {
+//		this.aircraft = aircraft;
+//	}
+//
+//	public void addProduct(Aircraft aircraft) {
+//		this.aircraft.add(aircraft);
+//	}
+//
+//	public void removeAircraft(Aircraft aircraft) {
+//		this.aircraft.remove(aircraft);
+//	}
 
 	public int getId() {
 		return id;
@@ -142,7 +142,7 @@ public class Product {
 	public String toString() {
 		return "Product [id=" + id + ", nomenclature=" + nomenclature + ", engine_manufacturer=" + engine_manufacturer
 				+ ", in_stock=" + in_stock + ", Qty=" + Qty + ", price=" + price + ", Warehouse_id=" + Warehouse_id
-				+ ", aircraft=" + aircraft + "]";
+				+ "]";
 	}
 
 	

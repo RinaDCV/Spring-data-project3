@@ -14,14 +14,14 @@ import com.skillstorm.project3.models.Inventory;
 
 @Repository
 public interface AircraftRepository extends JpaRepository <Aircraft, Integer> {
-Iterable<Aircraft> findByNameContaining(String name);
-	
-	@Query(value = "SELECT * FROM product WHERE description LIKE ?1 ;", nativeQuery = true) // can write your own query in JPQL (different syntax than SQL we've been using)
-	Iterable<Aircraft> findByDescriptionContaining(String description); // must pre and append the % in the service
-	
-	// This is a JPQL query (Java Persistence Query Language) 
-	@Query("SELECT s FROM Aircraft p JOIN p.inventory s WHERE p.id = :id") // :id is a named parameter // I could have done ?1
-	Iterable<Inventory> findInventoryByAircraftId(@Param("id") int id); // Annotate the parameter the @Param("whateveryounamedit")
+//Iterable<Aircraft> findByNameContaining(String name);
+//	
+//	@Query(value = "SELECT * FROM product WHERE description LIKE ?1 ;", nativeQuery = true) // can write your own query in JPQL (different syntax than SQL we've been using)
+//	Iterable<Aircraft> findByDescriptionContaining(String description); // must pre and append the % in the service
+//	
+//	// This is a JPQL query (Java Persistence Query Language) 
+//	@Query("SELECT s FROM Aircraft p JOIN p.inventory s WHERE p.id = :id") // :id is a named parameter // I could have done ?1
+//	Iterable<Inventory> findInventoryByAircraftId(@Param("id") int id); // Annotate the parameter the @Param("whateveryounamedit")
 
 	
 
