@@ -4,10 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.StringIdGenerator;
-
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -25,18 +21,18 @@ import java.util.Set;
 
 @Entity
 @Table (name = "inventory")
-@JsonIdentityInfo(generator = StringIdGenerator.class, property = "id")
+
 public class Inventory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Inventory_id")
+	@Column(name = "Inventory_id", updatable=false)
 	private int inventory_id;
 
 	@Column(name = "Warehouse_id")
 	private String warehouse_id;
 
-	@Column(name = "id")
+	@Column(name = "inventory_id")
 	private int id;
 
 	@Column(name = "Nomenclature")
@@ -52,9 +48,9 @@ public class Inventory {
 	@ManyToMany
 	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(
-			name = "aircraft",
-			joinColumns = @JoinColumn(name = "id"), // name of column of owner class
-			inverseJoinColumns = @JoinColumn(name = "id") // name of the column of the target class
+			name = "inventory",
+			joinColumns = @JoinColumn(name = "inventory_id"), // name of column of owner class
+			inverseJoinColumns = @JoinColumn(name = "aricraft_id") // name of the column of the target class
 			)
 	private Set<Aircraft> aircraft;
 
@@ -69,20 +65,20 @@ public class Inventory {
 		this.aircraft = new HashSet<>();
 	}
 
-	public Set<Aircraft> getProducts() {
+	public Set<Aircraft> getAircraft() {
 		return aircraft;
+	} 
+
+	public void setAircraft(Set<Aircraft> aircraft) {
+		this.aircraft = aircraft;
 	}
 
-	public void setProducts(Set<Aircraft> products) {
-		this.aircraft = products;
+	public void addProduct(Aircraft aircraft) {
+		this.aircraft.add(aircraft);
 	}
 
-	public void addProduct(Aircraft product) {
-		this.aircraft.add(product);
-	}
-
-	public void removeProduct(Aircraft product) {
-		this.aircraft.remove(product);
+	public void removeAircraft(Aircraft aircraft) {
+		this.aircraft.remove(aircraft);
 	}
 
 	public int getInventory_id() {
@@ -133,13 +129,8 @@ public class Inventory {
 		Qty = qty;
 	}
 
-	public Set<Aircraft> getAircraft() {
-		return aircraft;
-	}
 
-	public void setAircraft(Set<Aircraft> aircraft) {
-		this.aircraft = aircraft;
-	}
+
 
 	@Override
 	public String toString() {

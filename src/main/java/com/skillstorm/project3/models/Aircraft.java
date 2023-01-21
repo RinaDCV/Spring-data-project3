@@ -30,7 +30,7 @@ public class Aircraft {
 	@Column(name = "Aircraft_Manufacturer")
 	private String aircraft_manufacturer;
 
-	@Column(name = "id")
+	@Column(name = "aircraft_id")
 	private int id;
 
 	@Column(name = "Nomenclature")
@@ -42,13 +42,10 @@ public class Aircraft {
 	@Column(name = "Price")
 	private String price;
 
-	@Column(name = "Maint_Hours")
-	private Integer maint_hours;
-
 	@Column(name = "Warehouse_id")
 	private String warehouse_id;
 	
-	@ManyToMany(fetch = FetchType.LAZY, // don't be lazy and use .EAGER
+	@ManyToMany(fetch = FetchType.EAGER, // don't be lazy and use .EAGER
 			mappedBy = "aircraft") // name of PROPERTY in the OWNER class
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
 	@JsonIgnore
@@ -56,11 +53,11 @@ public class Aircraft {
 
 	public Aircraft() { }
 
-	public Aircraft(String aircraft_manufacturer, int Qty, String price, Integer maint_hours, String warehouse_id) {
+	public Aircraft(String aircraft_manufacturer, int Qty, String nomenclature, String price, String warehouse_id) {
 		this.aircraft_manufacturer = aircraft_manufacturer;
 		this.Qty = Qty;
+		this.nomenclature = nomenclature;
 		this.price = price;
-		this.maint_hours = maint_hours;
 		this.warehouse_id = warehouse_id;
 
 		this.inventory = new HashSet<>();
@@ -88,11 +85,11 @@ public class Aircraft {
 		this.aircraft_manufacturer = aircraft_manufacturer;
 	}
 
-	public int getId() {
+	public int getAircraft_id() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setAircraft_id(int id) {
 		this.id = id;
 	}
 
@@ -120,13 +117,6 @@ public class Aircraft {
 		this.price = price;
 	}
 
-	public Integer getMaint_hours() {
-		return maint_hours;
-	}
-
-	public void setMaint_hours(Integer maint_hours) {
-		this.maint_hours = maint_hours;
-	}
 
 	public String getWarehouse_id() {
 		return warehouse_id;
@@ -134,6 +124,13 @@ public class Aircraft {
 
 	public void setWarehouse_id(String warehouse_id) {
 		this.warehouse_id = warehouse_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", id=" + id + ", nomenclature="
+				+ nomenclature + ", Qty=" + Qty + ", price=" + price + ", warehouse_id=" + warehouse_id + ", inventory="
+				+ inventory + "]";
 	}
 	
 	
