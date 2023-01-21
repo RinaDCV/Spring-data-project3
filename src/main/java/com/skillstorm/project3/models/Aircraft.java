@@ -2,10 +2,12 @@ package com.skillstorm.project3.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -13,7 +15,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,41 +43,48 @@ public class Aircraft {
 
 	@Column(name = "Price")
 	private String price;
+	
+	@Column(name = "Maint_Hours")
+	private String maint_hours;
 
 	@Column(name = "Warehouse_id")
 	private String warehouse_id;
 	
-	@ManyToMany(fetch = FetchType.EAGER, // don't be lazy and use .EAGER
-			mappedBy = "aircraft") // name of PROPERTY in the OWNER class
-	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
-	@JsonIgnore
+	@ManyToMany
+	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+	@JoinTable(
+			name = "aarotek_inventory",
+			joinColumns = @JoinColumn(name = "Aircraft_id"), // name of column of owner class
+			inverseJoinColumns = @JoinColumn(name = "Product_id") // name of the column of the target class
+			)
 
-	private Set<Inventory> inventory;
+	private Set<Product> product;
 
 	public Aircraft() { } 
 
-	public Aircraft(String aircraft_manufacturer, int Qty, String nomenclature, String price, String warehouse_id) {
+	public Aircraft(String aircraft_manufacturer, int Qty, String nomenclature, String price, String maint_hours, String warehouse_id) {
 		this.aircraft_manufacturer = aircraft_manufacturer;
 		this.Qty = Qty;
 		this.nomenclature = nomenclature;
 		this.price = price;
+		this.maint_hours = maint_hours;
 		this.warehouse_id = warehouse_id;
-		this.inventory = new HashSet<>();
+		this.product = new HashSet<>();
 	}
-	public Set<Inventory> getInventory() {
-		return inventory;
+	public Set<Product> getproduct() {
+		return product;
 	}
 
-	public void setInventory(Set<Inventory> inventory) {
-		this.inventory = inventory;
+	public void setproduct(Set<Product> product) {
+		this.product = product;
 	}
 	
-	public void addInventory(Inventory inventory) {
-		this.inventory.add(inventory);
+	public void addproduct(Product product) {
+		this.product.add(product);
 	}
 	
-	public void removeInventory (Inventory inventory) {
-		this.inventory.remove(inventory);
+	public void removeproduct (Product product) {
+		this.product.remove(product);
 	}
 	public String getAircraft_manufacturer() {
 		return aircraft_manufacturer;
@@ -126,11 +135,20 @@ public class Aircraft {
 		this.warehouse_id = warehouse_id;
 	}
 
+	
+	public String getMaint_hours() {
+		return maint_hours;
+	}
+
+	public void setMaint_hours(String maint_hours) {
+		this.maint_hours = maint_hours;
+	}
+
 	@Override
 	public String toString() {
 		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", item_id=" + id + ", nomenclature="
-				+ nomenclature + ", Qty=" + Qty + ", price=" + price + ", warehouse_id=" + warehouse_id + ", inventory="
-				+ inventory + "]";
+				+ nomenclature + ", Qty=" + Qty + ", price=" + price + ", warehouse_id=" + warehouse_id + ", Product="
+				+ product + "]";
 	}
 	
 	
