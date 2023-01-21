@@ -10,6 +10,7 @@ public interface ProductService {
 	Product update(Product aircraft);
 	void delete(Product aircraft);
 	void deleteById(int id);
+	Product update(Product Product, int i);
 	
 
 }

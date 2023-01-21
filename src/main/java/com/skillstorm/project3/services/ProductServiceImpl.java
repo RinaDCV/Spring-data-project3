@@ -44,7 +44,7 @@ import com.skillstorm.project3.repositories.ProductRepository;
 		// This method will be only slightly different
 		// If the given id doesn't exist, don't do anything
 		@Override
-		public Product update(Product Product) {
+		public Product update(Product Product, int i) {
 			if (repository.existsById(Product.getId())) {
 				return repository.save(Product); 
 			}                                 
@@ -60,6 +60,12 @@ import com.skillstorm.project3.repositories.ProductRepository;
 		@Override
 		public void delete(Product Product) {
 			repository.delete(Product);
+		}
+
+		@Override
+		public Product update(Product aircraft) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}	

@@ -32,7 +32,7 @@ public class Aircraft {
 	@Column(name = "Aircraft_Manufacturer")
 	private String aircraft_manufacturer;
 
-	@Column(name = "Aircraft_id")
+	@Column(name = "aircraft_id")
 	private int id;
 
 	@Column(name = "Nomenclature")
@@ -54,8 +54,8 @@ public class Aircraft {
 	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(
 			name = "aarotek_inventory",
-			joinColumns = @JoinColumn(name = "Aircraft_id"), // name of column of owner class
-			inverseJoinColumns = @JoinColumn(name = "Product_id") // name of the column of the target class
+			joinColumns = @JoinColumn(name = "aircraft_id"), // name of column of owner class
+			inverseJoinColumns = @JoinColumn(name = "product_id") // name of the column of the target class
 			)
 
 	private Set<Product> product;
@@ -142,6 +142,22 @@ public class Aircraft {
 
 	public void setMaint_hours(String maint_hours) {
 		this.maint_hours = maint_hours;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
 	}
 
 	@Override
