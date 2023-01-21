@@ -27,13 +27,13 @@ public class Inventory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Inventory_id", updatable=false)
-	private int inventory_id;
+	private int id;
 
 	@Column(name = "Warehouse_id")
 	private String warehouse_id;
 
-	@Column(name = "inventory_id")
-	private int id;
+	@Column(name = "part_id")
+	private int part_id;
 
 	@Column(name = "Nomenclature")
 	private String nomenclature;
@@ -44,24 +44,28 @@ public class Inventory {
 
 	@Column(name = "Qty")
 	private int Qty;
+	
+	@Column(name = "Manufacturer_Name")
+	private int manufacturer_name;
 
 	@ManyToMany
 	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinTable(
-			name = "inventory",
+			name = "product",
 			joinColumns = @JoinColumn(name = "inventory_id"), // name of column of owner class
-			inverseJoinColumns = @JoinColumn(name = "aricraft_id") // name of the column of the target class
+			inverseJoinColumns = @JoinColumn(name = "aircraft_id") // name of the column of the target class
 			)
 	private Set<Aircraft> aircraft;
 
 	public Inventory() { }
 
-	public Inventory( int inventory_id, String warehouse_id, String nomenclature, int price, int Qty) {
-		this.inventory_id = inventory_id;
+	public Inventory( int id, String warehouse_id, String nomenclature, int price, int Qty, int manufacturer_name) {
+		this.id = id;
 		this.warehouse_id = warehouse_id;
 		this.nomenclature = nomenclature;
 		this.price = price;
 		this.Qty = Qty;
+		this.manufacturer_name= manufacturer_name;
 		this.aircraft = new HashSet<>();
 	}
 
@@ -81,12 +85,12 @@ public class Inventory {
 		this.aircraft.remove(aircraft);
 	}
 
-	public int getInventory_id() {
-		return inventory_id;
+	public int getItem_id() {
+		return id;
 	}
 
-	public void setInventory_id(int inventory_id) {
-		this.inventory_id = inventory_id;
+	public void setItem_id(int inventory_id) {
+		this.id = inventory_id;
 	}
 
 	public String getWarehouse_id() {
@@ -129,15 +133,23 @@ public class Inventory {
 		Qty = qty;
 	}
 
+	
+	public int getManufacturer_name() {
+		return manufacturer_name;
+	}
 
-
+	public void setManufacturer_name(int manufacturer_name) {
+		this.manufacturer_name = manufacturer_name;
+	}
 
 	@Override
 	public String toString() {
-		return "Inventory [inventory_id=" + inventory_id + ", warehouse_id=" + warehouse_id + ", id=" + id
-				+ ", nomenclature=" + nomenclature + ", price=" + price + ", Qty=" + Qty + ", aircraft=" + aircraft
-				+ "]";
+		return "Inventory [item_id=" + id + ", warehouse_id=" + warehouse_id + ", id=" + id
+				+ ", nomenclature=" + nomenclature + ", price=" + price + ", Qty=" + Qty + ", manufacturer_name="
+				+ manufacturer_name + ", aircraft=" + aircraft + "]";
 	}
+
+	
 
 }
 

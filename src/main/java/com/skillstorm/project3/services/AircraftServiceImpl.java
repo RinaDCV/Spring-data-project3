@@ -48,10 +48,10 @@ public class AircraftServiceImpl implements AircraftService{
 		// save is looking at the id and will overwrite it if it already exists
 		// to prevent this behavior do a check:
 		log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + aircraft.toString());
-		if (!repo.existsById(aircraft.getAircraft_id())) {
+		if (!repo.existsById(aircraft.getItem_id())) {
 			return repo.save(aircraft);
 		}
-		throw new CustomException("A product already exists with id of " + aircraft.getAircraft_id() + ".");
+		throw new CustomException("A product already exists with id of " + aircraft.getItem_id() + ".");
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class AircraftServiceImpl implements AircraftService{
 		if (!repo.existsById(id)) {
 			throw new CustomException("Update didn't work bc there is no existing record with the given id " + id +"."); // TODO make a custom exception to throw here
 		} else {
-			aircraft.setAircraft_id(id);
+			aircraft.setItem_id(id);
 			return repo.save(aircraft);
 		}
 	}

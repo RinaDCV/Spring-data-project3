@@ -69,7 +69,7 @@ public class InventoryController {
 	@PutMapping("/{id}")
 	public @ResponseBody Inventory update(@RequestBody Inventory aircraft, @PathVariable int id) {
 		System.out.println("Inside update");
-		aircraft.setInventory_id(id); // probably better to do this in the Service layer, controller should just forward everything to the service
+		aircraft.setItem_id(id); // probably better to do this in the Service layer, controller should just forward everything to the service
 		return service.update(aircraft); 
 	}
 	

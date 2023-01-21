@@ -30,7 +30,7 @@ public class Aircraft {
 	@Column(name = "Aircraft_Manufacturer")
 	private String aircraft_manufacturer;
 
-	@Column(name = "aircraft_id")
+	@Column(name = "Aircraft_id")
 	private int id;
 
 	@Column(name = "Nomenclature")
@@ -49,9 +49,10 @@ public class Aircraft {
 			mappedBy = "aircraft") // name of PROPERTY in the OWNER class
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
 	@JsonIgnore
+
 	private Set<Inventory> inventory;
 
-	public Aircraft() { }
+	public Aircraft() { } 
 
 	public Aircraft(String aircraft_manufacturer, int Qty, String nomenclature, String price, String warehouse_id) {
 		this.aircraft_manufacturer = aircraft_manufacturer;
@@ -59,10 +60,9 @@ public class Aircraft {
 		this.nomenclature = nomenclature;
 		this.price = price;
 		this.warehouse_id = warehouse_id;
-
 		this.inventory = new HashSet<>();
 	}
-	public Set<Inventory> getinventory() {
+	public Set<Inventory> getInventory() {
 		return inventory;
 	}
 
@@ -85,11 +85,11 @@ public class Aircraft {
 		this.aircraft_manufacturer = aircraft_manufacturer;
 	}
 
-	public int getAircraft_id() {
+	public int getItem_id() {
 		return id;
 	}
 
-	public void setAircraft_id(int id) {
+	public void setItem_id(int id) {
 		this.id = id;
 	}
 
@@ -128,7 +128,7 @@ public class Aircraft {
 
 	@Override
 	public String toString() {
-		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", id=" + id + ", nomenclature="
+		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", item_id=" + id + ", nomenclature="
 				+ nomenclature + ", Qty=" + Qty + ", price=" + price + ", warehouse_id=" + warehouse_id + ", inventory="
 				+ inventory + "]";
 	}
