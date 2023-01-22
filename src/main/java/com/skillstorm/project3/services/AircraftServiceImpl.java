@@ -1,107 +1,71 @@
+
+
 package com.skillstorm.project3.services;
 
-import java.util.List;
+
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.project3.models.Aircraft;
-import com.skillstorm.project3.models.CustomException;
-import com.skillstorm.project3.models.Inventory;
 import com.skillstorm.project3.repositories.AircraftRepository;
-
 
 
 @Service
 public class AircraftServiceImpl implements AircraftService{
 
 	@Autowired
-	AircraftRepository repo;
+	AircraftRepository repository;
 
-	Logger log = LoggerFactory.getLogger(AircraftServiceImpl.class);
+
 
 	@Override
 	public Iterable<Aircraft> findAll() {
-		return repo.findAll();
+		return repository.findAll();
 	}
 
 	@Override
-	public Aircraft findById(int id) throws CustomException {
-		Optional<Aircraft> result =  repo.findById(id); // you could store the optional and do a ifPresent() check then .get() else return null
-		if (!result.isPresent())
-			throw new CustomException("No inventory exists with id of " + id + ".");
-		return result.get();
+	public Aircraft findById(int id) {
+		Optional<Aircraft> aircraft = repository.findById(id);
+		return aircraft.isPresent() ? aircraft.get() : null;
 	}
 
+	
+	// This method could work two ways:
+	// 1. check if it exists already, if so don't overwrite it
+	// 2. go ahead and save it, if it already exists it will be overwritten
 	@Override
-	public Iterable<Aircraft> findByName(String name) {
-		return repo.findByNameContaining(name);
-	}
-
-	@Override // THIS IS A CONTRIVED EXAMPLE FOR THE GLOBALEXCEPTIONHANDLER, SAVE DOES NOT NEED TO DO ANY LOGIC
-//	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public Aircraft save(Aircraft aircraft) throws CustomException {
-		// if save ignores the id (you could set it to 0) then it would not be indempotent and would create a new one every time
-		// save is looking at the id and will overwrite it if it already exists
-		// to prevent this behavior do a check:
-		log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + aircraft.toString());
-		if (!repo.existsById(aircraft.getItem_id())) {
-			return repo.save(aircraft);
+	public Aircraft save(Aircraft aircraft) { // The save implementation 
+		// Method 1:
+		if (!repository.existsById(aircraft.getItem_id())) {
+			System.out.println("Inside service save " + aircraft);
+			Aircraft createdaircraft =  repository.save(aircraft);
+			System.out.println("Created aircraft " + createdaircraft);
+			return createdaircraft;
 		}
-		throw new CustomException("A product already exists with id of " + aircraft.getItem_id() + ".");
+		return aircraft;
 	}
 
+	// This method will be only slightly different
+	// If the given id doesn't exist, don't do anything
 	@Override
-	public Aircraft update(Aircraft aircraft, int id) throws CustomException {
-		if (!repo.existsById(id)) {
-			throw new CustomException("Update didn't work bc there is no existing record with the given id " + id +"."); // TODO make a custom exception to throw here
-		} else {
-			aircraft.setItem_id(id);
-			return repo.save(aircraft);
-		}
+	public Aircraft update(Aircraft aircraft) {
+		if (repository.existsById(aircraft.getItem_id())) {
+			return repository.save(aircraft); // I cannot change the id because I can't search by one Id and set with another id
+		}                                 // Idea to implement this: delete the entry of the old idea using deleteById() and save(aircraft) with new id
+		return null; 
+	}
+	
+	@Override
+	public void deleteById(int id) {
+		if (repository.existsById(id))
+			repository.deleteById(id); // org.springframework.dao.EmptyResultDataAccessException: No class com.skillstorm.practice.models.aircraft entity with id 3 exists!
 	}
 
 	@Override
 	public void delete(Aircraft aircraft) {
-		repo.delete(aircraft);
+		repository.delete(aircraft);
 	}
 
-	@Override
-	public void deleteById(int id) { // TODO we could let it throw the error and add to our GlobalExceptionHanlder class a method to create the HTTP response in this situation
-		if (repo.existsById(id)) // this is to make our deletebyid more rebust (ex: if we run this twice in a row by accident)
-			repo.deleteById(id); // this is throwing an error if we try to delete a nonexistent row 
-	}
-
-	@Override
-	public void deleteAll(List<Aircraft> aircraft) {
-		repo.deleteAll(aircraft);
-	}
-
-	@Override
-	public Iterable<Inventory> findInventoryByAircraftId(int id) {
-		log.debug("======================================================\n" 
-					+ "HERE I AM IN AircraftServiceImpl findInventoryByAircraftId!");
-		return repo.findInventoryByAircraftId(id);
-	}
-	
-	@Override
-	public Iterable<Aircraft> findByDescriptionContaining(String name) {
-		return repo.findByDescriptionContaining("%" + name + "%");
-	}
-
-} 
-
-
-
-
-
-
-
-
-
-
-
-
+}

@@ -13,8 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+//import org.hibernate.annotations.Cascade;
+//import org.hibernate.annotations.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,7 +26,7 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "product_id", updatable=false)
+	@Column(name = "product_id")
 	private int id;
 	
 	@Column(name = "Nomenclature")
@@ -48,8 +48,8 @@ public class Product {
 	private int Warehouse_id;
 	
 //	@ManyToMany(fetch = FetchType.LAZY, // don't be lazy and use .EAGER
-//			mappedBy = "aircraft") // name of PROPERTY in the OWNER class
-//	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+//			mappedBy = "product") // name of PROPERTY in the OWNER class
+//	//@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
 //	@JsonIgnore
 //	
 //	private Set<Aircraft> aircraft;
@@ -74,7 +74,7 @@ public class Product {
 //		this.aircraft = aircraft;
 //	}
 //
-//	public void addProduct(Aircraft aircraft) {
+//	public void addAircraft(Aircraft aircraft) {
 //		this.aircraft.add(aircraft);
 //	}
 //

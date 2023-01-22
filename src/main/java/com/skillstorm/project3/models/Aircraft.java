@@ -11,8 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+//import org.hibernate.annotations.Cascade;
+//import org.hibernate.annotations.CascadeType;
 
 
 
@@ -32,7 +32,7 @@ public class Aircraft {
 	@Column(name = "Aircraft_Manufacturer")
 	private String aircraft_manufacturer;
 
-	@Column(name = "aircraft_id")
+	@Column(name = "aircraft_id", updatable=false)
 	private int id;
 
 	@Column(name = "Nomenclature")
@@ -51,14 +51,14 @@ public class Aircraft {
 	private String warehouse_id;
 	
 //	@ManyToMany
-//	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+//	//@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
 //	@JoinTable(
 //			name = "aarotek_inventory",
 //			joinColumns = @JoinColumn(name = "aircraft_id"), // name of column of owner class
 //			inverseJoinColumns = @JoinColumn(name = "product_id") // name of the column of the target class
 //			)
 //
-//	private Set<Product> product;
+//	private Set<Product> products;
 //
 //	public Aircraft() { } 
 //
@@ -69,22 +69,22 @@ public class Aircraft {
 //		this.price = price;
 //		this.maint_hours = maint_hours;
 //		this.warehouse_id = warehouse_id;
-//		this.product = new HashSet<>();
+//		this.products = new HashSet<>();
 //	}
-//	public Set<Product> getproduct() {
-//		return product;
+//	public Set<Product> getProduct() {
+//		return products;
 //	}
 //
-//	public void setproduct(Set<Product> product) {
-//		this.product = product;
+//	public void setProduct(Set<Product> product) {
+//		this.products = product;
 //	}
 //	
-//	public void addproduct(Product product) {
-//		this.product.add(product);
+//	public void addProduct(Product product) {
+//		this.products.add(product);
 //	}
 //	
-//	public void removeproduct (Product product) {
-//		this.product.remove(product);
+//	public void removeProduct (Product product) {
+//		this.products.remove(product);
 //	}
 //	public String getAircraft_manufacturer() {
 //		return aircraft_manufacturer;
@@ -144,21 +144,6 @@ public class Aircraft {
 		this.maint_hours = maint_hours;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-//	public Set<Product> getProduct() {
-//		return product;
-//	}
-//
-//	public void setProduct(Set<Product> product) {
-//		this.product = product;
-//	}
 
 	@Override
 	public String toString() {
