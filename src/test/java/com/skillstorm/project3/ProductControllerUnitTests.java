@@ -55,7 +55,7 @@ import com.skillstorm.project3.services.ProductService;
 			
 			// perform the HTTP Get request
 			mockMvc.perform( MockMvcRequestBuilders
-								.get("/products") // Don't need the full URL localhost:8080 bc it is not spinning up our embedded server
+								.get("/product") // Don't need the full URL localhost:8080 bc it is not spinning up our embedded server
 								.accept(MediaType.APPLICATION_JSON) )
 					.andExpect(status().isOk())
 					.andExpect(content().string(mapper.writeValueAsString(product)));
@@ -79,7 +79,7 @@ import com.skillstorm.project3.services.ProductService;
 			
 			// perform the HTTP Get request
 			mockMvc.perform( MockMvcRequestBuilders
-								.get("/products/" + id)
+								.get("/product/" + id)
 								.accept(MediaType.APPLICATION_JSON) )
 					.andExpect(status().is4xxClientError()) // TODO match this exactly find a matcher to do so!
 					.andExpect(content().string(msg));
@@ -95,7 +95,7 @@ import com.skillstorm.project3.services.ProductService;
 			
 			// perform the POST http request
 			mockMvc.perform( MockMvcRequestBuilders
-					.post("/products" )
+					.post("/product" )
 					.content(mapper.writeValueAsString(product))
 				    .contentType(MediaType.APPLICATION_JSON) )// make sure you set the contentType header on your mock HTTP POST request
 //					.accept(MediaType.APPLICATION_JSON) ) // isn't necessary for this test HTTP POST request to work
@@ -113,7 +113,7 @@ import com.skillstorm.project3.services.ProductService;
 			
 			// perform the POST http request
 			mockMvc.perform( MockMvcRequestBuilders
-					.post("/products" )
+					.post("/product" )
 					.content(mapper.writeValueAsString(product))
 				    .contentType(MediaType.APPLICATION_JSON) )// make sure you set the contentType header on your mock HTTP POST request
 //					.accept(MediaType.APPLICATION_JSON) ) // isn't necessary for this test HTTP POST request to work
