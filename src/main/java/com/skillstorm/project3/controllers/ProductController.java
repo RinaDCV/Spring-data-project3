@@ -25,19 +25,19 @@ import com.skillstorm.project3.services.ProductService;
 
 @Controller
 @RequestMapping("/product")
-@CrossOrigin(origins = "*") // later u can change to * //allows frontend and backend to communicate
+//@CrossOrigin(origins = "/product") // later u can change to * //allows frontend and backend to communicate
 public class ProductController {
 
 	@Autowired
 	ProductService service;
 	
 	@GetMapping
-	public Iterable<Product> findAll(@RequestParam(name = "name", required = false) String name, 
-									@RequestParam(name = "description", required = false) String description) {
-		if (name != null)
-			return service.findByName(name); // TODO handle if BOTH name and description given instead of defaulting to just name
-		if (description != null)
-			return service.findByDescriptionContaining(description);
+	public Iterable<Product> findAll(@RequestParam(name = "Nomenclature", required = false) String nomenclature, 
+									@RequestParam(name = "Warehouse_id", required = false) String warehouse_id) {
+		if (nomenclature != null)
+			return service.findByName(nomenclature); 
+		if (warehouse_id != null)
+			return service.findByDescriptionContaining(warehouse_id);
 		return service.findAll();
 	}
 	

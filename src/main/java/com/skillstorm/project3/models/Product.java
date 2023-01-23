@@ -82,9 +82,12 @@ public class Product {
 //		this.aircraft.remove(aircraft);
 //	}
 
-	public Product(String string, String string2, int i, int j, int k, int l) {
+
+	public Product(int i, String string, String string2, int j, int k, String string3, String string4) {
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 	public int getId() {
 		return id;

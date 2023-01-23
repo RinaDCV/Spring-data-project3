@@ -27,39 +27,39 @@ import com.skillstorm.project3.services.ProductService;
 @WebMvcTest(ProductController.class) // This is prevents the full application from loading and only test the controller layer
 // @SpringBootTest // this would set up the entire context (all the beans including the service and repo layer which we don't need)
 // @SpringBootTest(webEnvironment = WebEnvironment.MOCK) ofr WebEnvironment.DEFINED_PORT, WebEnvironment.RANDOM_PORT, WebEnvironment.NONE
-// @AutoConfigureMockMvc // This disables spring security if you decide to use that for your project (not needed here)
+@AutoConfigureMockMvc // This disables spring security if you decide to use that for your project (not needed here)
 class ProductControllerUnitTests {
 	
-	// We need an object that has methods to make "http requests"
+	// object that has methods to make "http requests"
 	@Autowired
 	private MockMvc mockMvc;
 	
-	// We need a mock of our service layer
+	// mock of our service layer
 	@MockBean
 	ProductService service;
 	
-	// We need an object mapper to convert between Java objects and json
+	//object mapper to convert between Java objects and json
 	@Autowired
 	ObjectMapper mapper;
 
-//	@Test
-//	void testFindByIdSuccessful() throws JsonProcessingException, Exception {
-//		// set up a product our mock service will return
-//		Product product = new Product("cargo-piper", "aveao", 2, 17, 0, 0);
-//		
-//		// mock the method we expect our controller to need to call
-//		Mockito.when(service.findById(anyInt())).thenReturn(product);
-//
-//		
-//		// perform the HTTP Get request
-//		mockMvc.perform( MockMvcRequestBuilders
-//							.get("/products/1") // Don't need the full URL localhost:8080 bc it is not spinning up our embedded server
-//							.accept(MediaType.APPLICATION_JSON) )
-//				.andExpect(status().isOk())
-//				.andExpect(content().string(mapper.writeValueAsString(product)));
-//		
-//		verify(service, times(1)).findById(anyInt());
-//	}
+	@Test
+	void testFindByIdSuccessful() throws JsonProcessingException, Exception {
+		// set up a product our mock service will return
+		Product product = new Product(1, "Piston Engine","Contiental Motors", 10, 1, "$3,000", "P001");
+		
+		// mock the method we expect our controller to need to call
+		Mockito.when(service.findById(anyInt())).thenReturn(product);
+
+		
+		// perform the HTTP Get request
+		mockMvc.perform( MockMvcRequestBuilders
+							.get("http://localhost:8080/product/") // Don't need the full URL localhost:8080 bc it is not spinning up our embedded server
+							.accept(MediaType.APPLICATION_JSON) )
+				.andExpect(status().isOk())
+				.andExpect(content().string(mapper.writeValueAsString(product)));
+		
+		verify(service, times(1)).findById(anyInt());
+	}
 //	
 //	
 //	@Test

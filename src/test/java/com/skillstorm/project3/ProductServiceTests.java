@@ -34,7 +34,7 @@ import com.skillstorm.project3.services.ProductServiceImpl;
 		
 		@BeforeAll
 		static void setup() {
-			product = new Product("123", "engine", 0, 0, 0, 0);
+			product = new Product(1, "Piston Engine","Contiental Motors", 10, 1, "$3,000", "P001");
 		}
 		
 		@Mock
