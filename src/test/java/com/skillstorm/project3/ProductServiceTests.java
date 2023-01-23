@@ -65,13 +65,11 @@ import com.skillstorm.project3.services.ProductServiceImpl;
 		@Test
 		void testUpdateFailure() throws CustomException {
 			when(repo.existsById(anyInt())).thenReturn(false);
-//			when(repo.save(product)).thenReturn(product); // This will cause Mockito to get annoyed I'm wasting time mocking something that doesn't get called
-			
+		
 			int id = 1;
 			
 			// perform the method call
-			CustomException e = assertThrows(CustomException.class, () -> service.update(product, id));
-			
+			CustomException e = assertThrows(CustomException.class, () -> service.update(product, id));			
 			
 			// assert 
 			assertThat(e.getMessage()).isEqualTo("Update didn't work bc there is no existing record with the given id " + id +".");

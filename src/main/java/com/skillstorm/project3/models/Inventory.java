@@ -8,15 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import java.util.HashSet;
-
-import java.util.Set;
 
 
 @Entity
@@ -48,41 +46,54 @@ public class Inventory {
 	@Column(name = "Manufacturer_Name")
 	private int manufacturer_name;
 
-	@ManyToMany
-	@Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinTable(
-			name = "product",
-			joinColumns = @JoinColumn(name = "inventory_id"), // name of column of owner class
-			inverseJoinColumns = @JoinColumn(name = "aircraft_id") // name of the column of the target class
-			)
-	private Set<Aircraft> aircraft;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "aircraft_id")
+	private Aircraft aircraft;
+	
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
+	
 	public Inventory() { }
 
-	public Inventory( int id, String warehouse_id, String nomenclature, int price, int Qty, int manufacturer_name) {
+	public Inventory( int id, String warehouse_id, String nomenclature, int price, int Qty, int manufacturer_name, Aircraft aircraft, Product product) {
 		this.id = id;
 		this.warehouse_id = warehouse_id;
 		this.nomenclature = nomenclature;
 		this.price = price;
 		this.Qty = Qty;
 		this.manufacturer_name= manufacturer_name;
-		this.aircraft = new HashSet<>();
+		this.aircraft = aircraft;
+		this.product = product;
+		
+		
 	}
 
-	public Set<Aircraft> getAircraft() {
-		return aircraft;
-	} 
+	
 
-	public void setAircraft(Set<Aircraft> aircraft) {
+	public int getPart_id() {
+		return part_id;
+	}
+
+	public void setPart_id(int part_id) {
+		this.part_id = part_id;
+	}
+
+	public Aircraft getAircraft() {
+		return aircraft;
+	}
+
+	public void setAircraft(Aircraft aircraft) {
 		this.aircraft = aircraft;
 	}
 
-	public void addProduct(Aircraft aircraft) {
-		this.aircraft.add(aircraft);
+	public Product getProduct() {
+		return product;
 	}
 
-	public void removeAircraft(Aircraft aircraft) {
-		this.aircraft.remove(aircraft);
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public int getItem_id() {

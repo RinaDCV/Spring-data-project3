@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //import org.hibernate.annotations.Cascade;
@@ -47,40 +48,37 @@ public class Product {
 	@Column(name = "Warehouse_id")
 	private int Warehouse_id;
 	
-//	@ManyToMany(fetch = FetchType.LAZY, // don't be lazy and use .EAGER
-//			mappedBy = "product") // name of PROPERTY in the OWNER class
-//	//@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
-//	@JsonIgnore
-//	
-//	private Set<Aircraft> aircraft;
-//
-//	public Product() { }
-//
-//	public Product(String nomenclature, String engine_manufacturer, int in_stock, int Qty, int price, int Warehouse_id ) {
-//		this.nomenclature = nomenclature;
-//		this.engine_manufacturer = engine_manufacturer;
-//		this.in_stock = in_stock;
-//		this.Qty = Qty;
-//		this.price= price;
-//		this.Warehouse_id= Warehouse_id;
-//		this.aircraft = new HashSet<>();
-//	}
-//
-//	public Set<Aircraft> getAircraft() {
-//		return aircraft;
-//	} 
-//
-//	public void setAircraft(Set<Aircraft> aircraft) {
-//		this.aircraft = aircraft;
-//	}
-//
-//	public void addAircraft(Aircraft aircraft) {
-//		this.aircraft.add(aircraft);
-//	}
-//
-//	public void removeAircraft(Aircraft aircraft) {
-//		this.aircraft.remove(aircraft);
-//	}
+
+	@OneToMany(mappedBy = "product")
+	private Set<Inventory> inventory;
+
+	public Product() { }
+
+	public Product(String nomenclature, String engine_manufacturer, int in_stock, int Qty, int price, int Warehouse_id ) {
+		this.nomenclature = nomenclature;
+		this.engine_manufacturer = engine_manufacturer;
+		this.in_stock = in_stock;
+		this.Qty = Qty;
+		this.price= price;
+		this.Warehouse_id= Warehouse_id;
+		this.inventory = new HashSet<>();
+	}
+
+	public Set<Inventory> getInventory() { 
+		return inventory;
+	} 
+
+	public void setInventory(Set<Inventory> inventory) {
+		this.inventory = inventory;
+	}
+
+	public void addInventory(Inventory inventory) {
+		this.inventory.add(inventory);
+	}
+
+	public void removeInventory(Inventory inventory) {
+		this.inventory.remove(inventory);
+	}
 
 
 	public Product(int i, String string, String string2, int j, int k, String string3, String string4) {

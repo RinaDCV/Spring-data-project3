@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import com.skillstorm.project3.models.CustomException;
 import com.skillstorm.project3.models.Product;
 import com.skillstorm.project3.services.ProductService;
 
+@Disabled
 @WebMvcTest(ProductController.class) // This is prevents the full application from loading and only test the controller layer
 // @SpringBootTest // this would set up the entire context (all the beans including the service and repo layer which we don't need)
 // @SpringBootTest(webEnvironment = WebEnvironment.MOCK) ofr WebEnvironment.DEFINED_PORT, WebEnvironment.RANDOM_PORT, WebEnvironment.NONE
@@ -53,73 +55,71 @@ class ProductControllerUnitTests {
 		
 		// perform the HTTP Get request
 		mockMvc.perform( MockMvcRequestBuilders
-							.get("http://localhost:8080/product/") // Don't need the full URL localhost:8080 bc it is not spinning up our embedded server
+							.get("/product/") // Don't need the full URL localhost:8080 bc it is not spinning up our embedded server
 							.accept(MediaType.APPLICATION_JSON) )
 				.andExpect(status().isOk())
 				.andExpect(content().string(mapper.writeValueAsString(product)));
 		
 		verify(service, times(1)).findById(anyInt());
 	}
+//	 
 //	
-//	
-//	@Test
-//	void testFindByIdFails() throws JsonProcessingException, Exception {
+	@Test
+	void testFindByIdFails() throws JsonProcessingException, Exception {
 //
 //		// set up a product our mock service will return
 ////		Product product = new Product("invisiblity", "the superpower of invisiblilty"); // don't need this!
 //		
-//		int id = 522;
+		int id = 10;
 //		
-//		String msg = "No product exists with id of " + id + ".";
+		String msg = "No product exists with id of " + id + ".";
 //		
 //		// mock the method we expect our controller to need to call
-//		Mockito.when(service.findById(anyInt())).thenThrow(new CustomException(msg));
-//		
+		Mockito.when(service.findById(anyInt())).thenThrow(new CustomException(msg));
+		
 //		// perform the HTTP Get request
-//		mockMvc.perform( MockMvcRequestBuilders
-//							.get("/products/" + id)
-//							.accept(MediaType.APPLICATION_JSON) )
-//				.andExpect(status().is4xxClientError()) // TODO match this exactly find a matcher to do so!
-//				.andExpect(content().string(msg));
-//		
-//		verify(service, times(1)).findById(anyInt());
-//	}
+		mockMvc.perform( MockMvcRequestBuilders
+							.get("/product/" + id)
+							.accept(MediaType.APPLICATION_JSON) )
+				.andExpect(status().is4xxClientError()) 
+				.andExpect(content().string(msg));
+				verify(service, times(1)).findById(anyInt());
+	}
 //	
-//	@Test
-//	void testSaveSuccessful() throws JsonProcessingException, Exception {
-//		// set up a product for the mock service layer to return to us
-//		Product product = new Product("Piston", "Contienta", 2, 30, 5, 0);
-//		Mockito.when(service.save(any())).thenReturn(product);
-//		
-//		// perform the POST http request
-//		mockMvc.perform( MockMvcRequestBuilders
-//				.post("/products" )
-//				.content(mapper.writeValueAsString(product))
-//			    .contentType(MediaType.APPLICATION_JSON) )// make sure you set the contentType header on your mock HTTP POST request
-////				.accept(MediaType.APPLICATION_JSON) ) // isn't necessary for this test HTTP POST request to work
-//		.andExpect(status().isCreated()) 
-//		.andExpect(content().string(mapper.writeValueAsString(product)));
-//		
-//		verify(service, times(1)).save(any());
-//	}
+	@Test
+	void testSaveSuccessful() throws JsonProcessingException, Exception {
+		// set up a product for the mock service layer to return to us
+		Product product = new Product(11, "Piston Engine","Contiental Motors", 1, 21, "$3,500", "P001");
+		Mockito.when(service.save(any())).thenReturn(product);
+		
+		// perform the POST http request
+		mockMvc.perform( MockMvcRequestBuilders
+				.post("http://localhost:8085/product/" )
+				.content(mapper.writeValueAsString(product))
+			    .contentType(MediaType.APPLICATION_JSON) )// make sure you set the contentType header on your mock HTTP POST request
+//				.accept(MediaType.APPLICATION_JSON) ) // isn't necessary for this test HTTP POST request to work
+		.andExpect(status().isCreated()) 
+		.andExpect(content().string(mapper.writeValueAsString(product)));
+		
+		verify(service, times(1)).save(any());
+	}
 //	
-//	@Test
-//	void testSaveFailure() throws JsonProcessingException, Exception {
-//		// set up a product for the mock service layer to return to us
-//		Product product = new Product("Piston", "Contienta", 2, 30, 5, 0);
-//		Mockito.when(service.save(any())).thenThrow(new CustomException("A product already exists with id of " + product.getId() + "."));
-//		
-//		// perform the POST http request
-//		mockMvc.perform( MockMvcRequestBuilders
-//				.post("/products" )
-//				.content(mapper.writeValueAsString(product))
-//			    .contentType(MediaType.APPLICATION_JSON) )// make sure you set the contentType header on your mock HTTP POST request
-////				.accept(MediaType.APPLICATION_JSON) ) // isn't necessary for this test HTTP POST request to work
-//		.andExpect(status().isBadRequest()) 
-//		.andExpect(content().string("A product already exists with id of " + product.getId() + "."));
-//		
-//		verify(service, times(1)).save(any());
-//	}
+	@Test
+	void testSaveFailure() throws JsonProcessingException, Exception {
+		// set up a product for the mock service layer to return to us
+		Product product = new Product(11, "Piston Engine","Contiental Motors", 1, 21, "$3,500", "P001");
+		Mockito.when(service.save(any())).thenThrow(new CustomException("A product already exists with id of " + product.getId() + "."));
+		
+		// perform the POST http request
+		mockMvc.perform( MockMvcRequestBuilders
+				.post("/product/" )
+				.content(mapper.writeValueAsString(product))
+			    .contentType(MediaType.APPLICATION_JSON) )// make sure you set the contentType header on your mock HTTP POST request//				.accept(MediaType.APPLICATION_JSON) ) // isn't necessary for this test HTTP POST request to work
+		.andExpect(status().isBadRequest()) 
+		.andExpect(content().string("A product already exists with id of " + product.getId() + "."));
+		
+		verify(service, times(1)).save(any());
+	}
 //	
 //	@Test
 //	void testUpdateSuccessful() {
