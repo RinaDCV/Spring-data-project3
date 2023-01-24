@@ -1,7 +1,5 @@
 package com.skillstorm.project3.controllers;
 
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +25,6 @@ import com.skillstorm.project3.services.AircraftService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-
-
 @RestController
 @Controller
 @RequestMapping("/aircraft")
@@ -36,6 +32,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @CrossOrigin(origins = "*") 
 public class AircraftController {
 
+	
 Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Autowired // this gets created for us

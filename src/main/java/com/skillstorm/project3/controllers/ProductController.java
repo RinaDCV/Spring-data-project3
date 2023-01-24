@@ -17,15 +17,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.project3.models.CustomException;
 import com.skillstorm.project3.models.Product;
 import com.skillstorm.project3.models.Aircraft;
 import com.skillstorm.project3.services.ProductService;
 
+@RestController
 @Controller
 @RequestMapping("/product")
-//@CrossOrigin(origins = "/product") // later u can change to * //allows frontend and backend to communicate
+@CrossOrigin(origins = "*") // later u can change to * //allows frontend and backend to communicate
 public class ProductController {
 
 	@Autowired

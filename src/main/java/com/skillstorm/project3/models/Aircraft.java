@@ -26,7 +26,7 @@ import java.util.Set;
 @Table(name = "aircraft")
 
 public class Aircraft {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "aircraft_id", updatable=false)
