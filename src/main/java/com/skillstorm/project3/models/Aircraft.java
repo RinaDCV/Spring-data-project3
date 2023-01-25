@@ -6,17 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-//import org.hibernate.annotations.Cascade;
-//import org.hibernate.annotations.CascadeType;
-
-
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,30 +17,30 @@ import java.util.Set;
 
 @Entity
 @Table(name = "aircraft")
-
+@CrossOrigin(origins = "*") 
 public class Aircraft {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "aircraft_id", updatable=false)
-	private int id;
+	private int aircraft_id;
 	
-	@Column(name = "Aircraft_Manufacturer")
+	@Column(name = "aircraft_manufacturer")
 	private String aircraft_manufacturer;
 
-	@Column(name = "Nomenclature")
+	@Column(name = "nomenclature")
 	private String nomenclature;
 
-	@Column(name = "Qty")
-	private int Qty;
+	@Column(name = "qty")
+	private int qty;
 
-	@Column(name = "Price")
+	@Column(name = "price")
 	private String price;
 	
-	@Column(name = "Maint_Hours")
+	@Column(name = "maint_hours")
 	private String maint_hours;
 
-	@Column(name = "Warehouse_id")
+	@Column(name = "warehouse_id")
 	private String warehouse_id;
 	
 	@OneToMany(mappedBy= "aircraft")
@@ -55,9 +48,9 @@ public class Aircraft {
 
 	public Aircraft() { } 
 
-	public Aircraft(String aircraft_manufacturer, int Qty, String nomenclature, String price, String maint_hours, String warehouse_id) {
+	public Aircraft(String aircraft_manufacturer, int qty, String nomenclature, String price, String maint_hours, String warehouse_id) {
 		this.aircraft_manufacturer = aircraft_manufacturer;
-		this.Qty = Qty;
+		this.qty = qty;
 		this.nomenclature = nomenclature;
 		this.price = price;
 		this.maint_hours = maint_hours;
@@ -88,11 +81,11 @@ public class Aircraft {
 	}
 
 	public int getItem_id() {
-		return id;
+		return aircraft_id;
 	}
 
 	public void setItem_id(int id) {
-		this.id = id;
+		this.aircraft_id = id;
 	}
 
 	public String getNomenclature() {
@@ -104,11 +97,11 @@ public class Aircraft {
 	}
 
 	public int getQty() {
-		return Qty;
+		return qty;
 	}
 
 	public void setQty(int qty) {
-		Qty = qty;
+		this.qty = qty;
 	}
 
 	public String getPrice() {
@@ -137,13 +130,16 @@ public class Aircraft {
 		this.maint_hours = maint_hours;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Aircraft [aircraft_manufacturer=" + aircraft_manufacturer + ", item_id=" + id + ", nomenclature="
-				+ nomenclature + ", Qty=" + Qty + ", price=" + price + ", warehouse_id=" + warehouse_id + 
-			 "]";
+		return "Aircraft [aircraft_id=" + aircraft_id + ", aircraft_manufacturer=" + aircraft_manufacturer + ", nomenclature="
+				+ nomenclature + ", qty=" + qty + ", price=" + price + ", maint_hours=" + maint_hours
+				+ ", warehouse_id=" + warehouse_id + ", inventory=" + inventory + "]";
 	}
+
+
+	
+
 	
 	
 }

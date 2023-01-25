@@ -5,48 +5,46 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //import org.hibernate.annotations.Cascade;
 //import org.hibernate.annotations.CascadeType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table (name = "Product")
+@Table (name = "product")
 
 public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
-	private int id;
+	private int product_id;
 	
-	@Column(name = "Nomenclature")
+	@Column(name = "nomenclature")
 	private String nomenclature;
 	
-	@Column(name = "Engine_Manufacturer")
+	@Column(name = "engine_manufacturer")
 	private String engine_manufacturer;
 
-	@Column(name = "In_Stock")
+	@Column(name = "in_stock")
 	private int in_stock;
 
-	@Column(name = "Qty")
-	private int Qty;
+	@Column(name = "qty")
+	private int qty;
 
-	@Column(name = "Price")
-	private int price;
+	@Column(name = "price")
+	private String price;
 
-	@Column(name = "Warehouse_id")
-	private int Warehouse_id;
+	@Column(name = "warehouse_id")
+	private String warehouse_id;
 	
 
 	@OneToMany(mappedBy = "product")
@@ -54,13 +52,13 @@ public class Product {
 
 	public Product() { }
 
-	public Product(String nomenclature, String engine_manufacturer, int in_stock, int Qty, int price, int Warehouse_id ) {
+	public Product(String nomenclature, String engine_manufacturer, int in_stock, int qty, String price, String warehouse_id ) {
 		this.nomenclature = nomenclature;
 		this.engine_manufacturer = engine_manufacturer;
 		this.in_stock = in_stock;
-		this.Qty = Qty;
+		this.qty = qty;
 		this.price= price;
-		this.Warehouse_id= Warehouse_id;
+		this.warehouse_id= warehouse_id;
 		this.inventory = new HashSet<>();
 	}
 
@@ -88,11 +86,11 @@ public class Product {
 
 
 	public int getId() {
-		return id;
+		return product_id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.product_id = id;
 	}
 
 	public String getNomenclature() {
@@ -120,33 +118,33 @@ public class Product {
 	}
 
 	public int getQty() {
-		return Qty;
+		return qty;
 	}
 
 	public void setQty(int qty) {
-		Qty = qty;
+		this.qty = qty;
 	}
 
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public int getWarehouse_id() {
-		return Warehouse_id;
+	public String getwarehouse_id() {
+		return warehouse_id;
 	}
 
-	public void setWarehouse_id(int warehouse_id) {
-		Warehouse_id = warehouse_id;
+	public void setWarehouse_id(String warehouse_id) {
+		this.warehouse_id = warehouse_id;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", nomenclature=" + nomenclature + ", engine_manufacturer=" + engine_manufacturer
-				+ ", in_stock=" + in_stock + ", Qty=" + Qty + ", price=" + price + ", Warehouse_id=" + Warehouse_id
+		return "Product [product_id=" + product_id + ", nomenclature=" + nomenclature + ", engine_manufacturer=" + engine_manufacturer
+				+ ", in_stock=" + in_stock + ", qty=" + qty + ", price=" + price + ", Warehouse_id=" + warehouse_id
 				+ "]";
 	}
 

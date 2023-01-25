@@ -26,16 +26,16 @@ import com.skillstorm.project3.services.ProductService;
 
 @RestController
 @Controller
-@RequestMapping("/product")
+@RequestMapping("product")
 @CrossOrigin(origins = "*") // later u can change to * //allows frontend and backend to communicate
 public class ProductController {
 
 	@Autowired
 	ProductService service;
 	
-	@GetMapping
-	public Iterable<Product> findAll(@RequestParam(name = "Nomenclature", required = false) String nomenclature, 
-									@RequestParam(name = "Warehouse_id", required = false) String warehouse_id) {
+	@GetMapping 
+	public Iterable<Product> findAll(@RequestParam(name = "nomenclature", required = false) String nomenclature, 
+									@RequestParam(name = "warehouse_id", required = false) String warehouse_id) {
 		if (nomenclature != null)
 			return service.findByName(nomenclature); 
 		if (warehouse_id != null)
@@ -48,7 +48,7 @@ public class ProductController {
 		return service.findById(id);
 	}
 	
-	@GetMapping("/{id}/shops")
+	@GetMapping("/{id}/product")
 	public Iterable<Aircraft> findStoresByProductId(@PathVariable int id) {
 		return service.findAircraftByProductId(id);
 	}
@@ -56,8 +56,8 @@ public class ProductController {
 
 	// 200 successful or 404 not found or 400 bad request if couldn't find it
 	@PutMapping("/{id}")
-	public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable int id) throws CustomException {
-		Product result = service.update(product, id);
+	public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable int product_id) throws CustomException {
+		Product result = service.update(product, product_id);
 //		if (result == null)
 //			return ResponseEntity.notFound().build(); 
 		return ResponseEntity.ok(result);
@@ -78,8 +78,8 @@ public class ProductController {
 	
 	@DeleteMapping("/{id}") 
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delte(@PathVariable int id) {
-		service.deleteById(id);
+	public void delte(@PathVariable int product_id) {
+		service.deleteById(product_id);
 	}
 	
 	@DeleteMapping("/all") // not the best solution, TODO handle the ambiguous delete mapping

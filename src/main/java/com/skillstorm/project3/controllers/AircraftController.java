@@ -22,12 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.project3.models.Aircraft;
 import com.skillstorm.project3.services.AircraftService;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @Controller
-@RequestMapping("/aircraft")
+@RequestMapping("aircraft")
 @Tag(name = "Aircraft API", description = "A place to manage the aircrafts that exist")
 @CrossOrigin(origins = "*") 
 public class AircraftController {
@@ -35,7 +34,7 @@ public class AircraftController {
 	
 Logger log = LoggerFactory.getLogger(getClass());
 	
-	@Autowired // this gets created for us
+	@Autowired 
 	private AircraftService service; // this is property dependency injection (rather than constructor dependency injection)
 
 	@GetMapping // convenience annotation that lets us avoid passing a bunch of parameters

@@ -29,9 +29,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @Controller
-@RequestMapping("/inventory")
+@RequestMapping("inventory")
 @Tag(name = "Inventory API", description = "A place to manage the shops that exist")
-@CrossOrigin(origins = "local host:4200") // later u can change to * //allows frontend and backend to communicate
+@CrossOrigin(origins = "*") // later u can change to * //allows frontend and backend to communicate
 public class InventoryController {
 
 	

@@ -6,15 +6,11 @@ import javax.persistence.GeneratedValue;
 
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+
 import javax.persistence.JoinColumn;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 
 
 @Entity
@@ -24,27 +20,27 @@ public class Inventory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Inventory_id", updatable=false)
+	@Column(name = "inventory_id", updatable=false)
 	private int id;
 
-	@Column(name = "Warehouse_id")
+	@Column(name = "warehouse_id")
 	private String warehouse_id;
 
 	@Column(name = "part_id")
 	private int part_id;
 
-	@Column(name = "Nomenclature")
+	@Column(name = "nomenclature")
 	private String nomenclature;
 
-	@Column(name = "Price")
-	private int price;
+	@Column(name = "price")
+	private String price;
 
 
-	@Column(name = "Qty")
-	private int Qty;
+	@Column(name = "qty")
+	private int qty;
 	
-	@Column(name = "Manufacturer_Name")
-	private int manufacturer_name;
+	@Column(name = "manufacturer_name")
+	private String manufacturer_name;
 
 	
 	@ManyToOne
@@ -57,20 +53,16 @@ public class Inventory {
 	
 	public Inventory() { }
 
-	public Inventory( int id, String warehouse_id, String nomenclature, int price, int Qty, int manufacturer_name, Aircraft aircraft, Product product) {
-		this.id = id;
+	public Inventory( int inventory_id, String warehouse_id, String nomenclature, String price, int qty, String manufacturer_name, Aircraft aircraft, Product product) {
+		this.id = inventory_id;
 		this.warehouse_id = warehouse_id;
 		this.nomenclature = nomenclature;
 		this.price = price;
-		this.Qty = Qty;
+		this.qty = qty;
 		this.manufacturer_name= manufacturer_name;
 		this.aircraft = aircraft;
 		this.product = product;
-		
-		
 	}
-
-	
 
 	public int getPart_id() {
 		return part_id;
@@ -128,38 +120,39 @@ public class Inventory {
 		this.nomenclature = nomenclature;
 	}
 
-	public int getPrice() {
+	public String getprice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setprice(String price) {
 		this.price = price;
 	}
 
 	public int getQty() {
-		return Qty;
+		return qty;
 	}
 
 	public void setQty(int qty) {
-		Qty = qty;
+		this.qty = qty;
 	}
 
 	
-	public int getManufacturer_name() {
+	public String getManufacturer_name() {
 		return manufacturer_name;
 	}
 
-	public void setManufacturer_name(int manufacturer_name) {
+	public void setManufacturer_name(String manufacturer_name) {
 		this.manufacturer_name = manufacturer_name;
 	}
 
 	@Override
 	public String toString() {
-		return "Inventory [item_id=" + id + ", warehouse_id=" + warehouse_id + ", id=" + id
-				+ ", nomenclature=" + nomenclature + ", price=" + price + ", Qty=" + Qty + ", manufacturer_name="
-				+ manufacturer_name + ", aircraft=" + aircraft + "]";
+		return "Inventory [inventory_id=" + id + ", warehouse_id=" + warehouse_id + ", part_id=" + part_id
+				+ ", nomenclature=" + nomenclature + ", price=" + price + ", qty=" + qty + ", manufacturer_name="
+				+ manufacturer_name + ", aircraft=" + aircraft + ", product=" + product + "]";
 	}
 
+	
 	
 
 }
