@@ -37,18 +37,7 @@ Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Autowired // this gets created for us
 	private AircraftService service; // this is property dependency injection (rather than constructor dependency injection)
-	
-// Method 1 of defining our api endpoints
-//	@RequestMapping(value = "/aircraft", method = RequestMethod.GET)
-//	public @ResponseBody List<aircraft> findAll() {
-//		System.out.println("Inside findAll");
-//		return null;
-//	}
-	
-// Method 2
-//	@GetMapping("/aircraft") // warning: if this defined at the class level, don't define it here! or it will be /aircraft/aircraft
-	
-// Method 3
+
 	@GetMapping // convenience annotation that lets us avoid passing a bunch of parameters
 	//@Operation(summary = "some summary here", description = "some description here")
 	public @ResponseBody Iterable<Aircraft> findAll() {
