@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +46,7 @@ public class Aircraft {
 	private String warehouse_id;
 	
 	@OneToMany(mappedBy= "aircraft")
+	@JsonIgnore
 	private Set<Inventory> inventory;
 
 	public Aircraft() { } 
